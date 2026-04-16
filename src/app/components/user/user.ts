@@ -1,4 +1,4 @@
-import { Component, signal, computed, Input, input } from '@angular/core';
+import { Component, signal, computed, Input, input, Output, EventEmitter } from '@angular/core';
 import { DUMMY_USERS } from '../../dummy-users';
 
 const randomIndex = Math.floor(Math.random() * DUMMY_USERS.length);
@@ -10,17 +10,21 @@ const randomIndex = Math.floor(Math.random() * DUMMY_USERS.length);
   styleUrl: './user.scss',
 })
 export class User {
-  // @Input({ required: true }) avatar!: string;
-  // @Input({ required: true }) name!: string;
+  @Input({ required: true }) id!: string;
+  @Input({ required: true })
+  avatar!: string;
+  @Input({ required: true }) name!: string;
+
+  @Output() userSelected = new EventEmitter<string>();
 
   // input signal with types, required and default value
-  avatar = input.required<string>();
-  name = input.required<string>();
+  // avatar = input.required<string>();
+  // name = input.required<string>();
 
   //Computed with input signal image path
-  imagePath = computed(() => {
-    return 'assets/users/' + this.avatar();
-  });
+  // imagePath = computed(() => {
+  //   return 'assets/users/' + this.avatar();
+  // });
 
   // selectedUser = signal(DUMMY_USERS[randomIndex]);
 
@@ -30,9 +34,9 @@ export class User {
   // imagePath = computed(() => 'assets/users/' + this.selectedUser().avatar);
 
   // Getter to compute the image path based on the selected user's avatar
-  // get imagePath() {
-  //   return 'assets/users/' + this.avatar;
-  // }
+  get imagePath() {
+    return 'assets/users/' + this.avatar;
+  }
 
   // onSelectUser() {
   //   const randomIndex = Math.floor(Math.random() * DUMMY_USERS.length);
@@ -40,5 +44,7 @@ export class User {
   //   console.log('Selected user:', this.selectedUser());
   // }
 
-  onSelectUser() {}
+  onSelectUser() {
+    this.userSelected.emit(this.id);
+  }
 }
