@@ -1,6 +1,14 @@
-<div>
+<!-- <div>
+  With signal
   <button (click)="onSelectUser()">
     <img [src]="imagePath()" [alt]="selectedUser().name" class="user-icon" />
     <span>{{ selectedUser().name }}</span>
+  </button>
+</div> -->
+
+<div>
+  <button (click)="onSelectUser()">
+    <img [src]="imagePath" [alt]="name" class="user-icon" />
+    <span>{{ name }}</span>
   </button>
 </div>
