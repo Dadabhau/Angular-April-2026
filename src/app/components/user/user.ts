@@ -1,4 +1,13 @@
-import { Component, signal, computed, Input, input, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  signal,
+  computed,
+  Input,
+  input,
+  Output,
+  EventEmitter,
+  output,
+} from '@angular/core';
 import { DUMMY_USERS } from '../../dummy-users';
 
 const randomIndex = Math.floor(Math.random() * DUMMY_USERS.length);
@@ -15,7 +24,10 @@ export class User {
   avatar!: string;
   @Input({ required: true }) name!: string;
 
-  @Output() userSelected = new EventEmitter<string>();
+  // @Output() userSelected = new EventEmitter<string>();
+
+  // output signal with types
+  userSelected = output<string>();
 
   // input signal with types, required and default value
   // avatar = input.required<string>();
@@ -45,6 +57,7 @@ export class User {
   // }
 
   onSelectUser() {
+    // Emit the selected user ID using the output signal
     this.userSelected.emit(this.id);
   }
 }
