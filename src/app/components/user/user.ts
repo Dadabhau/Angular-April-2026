@@ -1,4 +1,4 @@
-import { Component, signal, computed, Input } from '@angular/core';
+import { Component, signal, computed, Input, input } from '@angular/core';
 import { DUMMY_USERS } from '../../dummy-users';
 
 const randomIndex = Math.floor(Math.random() * DUMMY_USERS.length);
@@ -10,20 +10,29 @@ const randomIndex = Math.floor(Math.random() * DUMMY_USERS.length);
   styleUrl: './user.scss',
 })
 export class User {
-  @Input() avatar!: string;
-  @Input() name!: string;
+  // @Input({ required: true }) avatar!: string;
+  // @Input({ required: true }) name!: string;
+
+  // input signal with types, required and default value
+  avatar = input.required<string>();
+  name = input.required<string>();
+
+  //Computed with input signal image path
+  imagePath = computed(() => {
+    return 'assets/users/' + this.avatar();
+  });
 
   // selectedUser = signal(DUMMY_USERS[randomIndex]);
 
-  selectedUser = DUMMY_USERS[randomIndex];
+  // selectedUser = DUMMY_USERS[randomIndex];
 
   // With Signal, we can define a getter that computes the image path based on the selected user's avatar. This allows us to easily update the image source in the template whenever the selected user changes.
   // imagePath = computed(() => 'assets/users/' + this.selectedUser().avatar);
 
   // Getter to compute the image path based on the selected user's avatar
-  get imagePath() {
-    return 'assets/users/' + this.selectedUser.avatar;
-  }
+  // get imagePath() {
+  //   return 'assets/users/' + this.avatar;
+  // }
 
   // onSelectUser() {
   //   const randomIndex = Math.floor(Math.random() * DUMMY_USERS.length);
