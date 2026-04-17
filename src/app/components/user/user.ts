@@ -8,7 +8,7 @@ import {
   EventEmitter,
   output,
 } from '@angular/core';
-import { DUMMY_USERS } from '../../dummy-users';
+import { DUMMY_USERS } from '../../core/constants/dummy-users';
 import { UserModule } from '../../core/models/user.model';
 
 const randomIndex = Math.floor(Math.random() * DUMMY_USERS.length);
