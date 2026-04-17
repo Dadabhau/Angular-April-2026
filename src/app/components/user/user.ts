@@ -9,6 +9,7 @@ import {
   output,
 } from '@angular/core';
 import { DUMMY_USERS } from '../../dummy-users';
+import { UserModule } from '../../core/models/user.model';
 
 const randomIndex = Math.floor(Math.random() * DUMMY_USERS.length);
 
@@ -19,15 +20,11 @@ const randomIndex = Math.floor(Math.random() * DUMMY_USERS.length);
   styleUrl: './user.scss',
 })
 export class User {
-  @Input({ required: true }) id!: string;
-  @Input({ required: true })
-  avatar!: string;
-  @Input({ required: true }) name!: string;
-
-  // @Output() userSelected = new EventEmitter<string>();
+  @Input({ required: true }) user!: UserModule;
+  @Output() userSelected = new EventEmitter<string>();
 
   // output signal with types
-  userSelected = output<string>();
+  // userSelected = output<string>();
 
   // input signal with types, required and default value
   // avatar = input.required<string>();
@@ -47,7 +44,7 @@ export class User {
 
   // Getter to compute the image path based on the selected user's avatar
   get imagePath() {
-    return 'assets/users/' + this.avatar;
+    return 'assets/users/' + this.user.avatar;
   }
 
   // onSelectUser() {
@@ -57,7 +54,6 @@ export class User {
   // }
 
   onSelectUser() {
-    // Emit the selected user ID using the output signal
-    this.userSelected.emit(this.id);
+    this.userSelected.emit(this.user.id);
   }
 }
