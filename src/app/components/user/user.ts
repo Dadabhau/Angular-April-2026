@@ -10,12 +10,13 @@ import {
 } from '@angular/core';
 import { DUMMY_USERS } from '../../core/constants/dummy-users';
 import { UserModule } from '../../core/models/user.model';
+import { Card } from '../../shared/components/card/card';
 
 const randomIndex = Math.floor(Math.random() * DUMMY_USERS.length);
 
 @Component({
   selector: 'app-user',
-  imports: [],
+  imports: [Card],
   templateUrl: './user.html',
   styleUrl: './user.scss',
 })

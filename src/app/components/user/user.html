@@ -6,9 +6,9 @@
   </button>
 </div> -->
 
-<div>
+<app-card>
   <button [class.active]="selected" (click)="onSelectUser()">
     <img [src]="imagePath" [alt]="user.name" class="user-icon" />
     <span>{{ user.name }}</span>
   </button>
-</div>
+</app-card>
