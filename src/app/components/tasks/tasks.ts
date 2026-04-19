@@ -3,6 +3,7 @@ import { Task } from './task/task';
 import { dummyTasks } from '../../core/constants/dummy-tasks';
 import { NewTask } from './new-task/new-task';
 import { type NewTaskModel } from '../../core/models/new-task.model';
+import { TasksService } from '../../core/services/tasks.service';
 
 @Component({
   selector: 'app-tasks',
@@ -17,8 +18,13 @@ export class Tasks {
   isAddingTask = false;
   tasks = dummyTasks;
 
+  constructor(private tasksService: TasksService) {}
+
   get selectedUserTasks() {
-    return this.tasks.filter((task) => task.userId === this.userId);
+    // Service method to get tasks for the selected user
+    return this.tasksService.getUsersTasks(this.userId);
+
+    // return this.tasks.filter((task) => task.userId === this.userId);
   }
 
   onTaskCompleted(taskId: string) {
@@ -30,19 +36,7 @@ export class Tasks {
     this.isAddingTask = true;
   }
 
-  onCancelAddTask() {
+  onCloseAddTask() {
     this.isAddingTask = false;
-  }
-
-  onAddTask(task: NewTaskModel) {
-    this.tasks.push({
-      id: `task-${Date.now()}`,
-      userId: this.userId,
-      title: task.title,
-      summary: task.summary,
-      dueDate: task.dueDate,
-    });
-    this.isAddingTask = false;
-    console.log('New task added:', task);
   }
 }
